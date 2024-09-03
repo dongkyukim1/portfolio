@@ -1,24 +1,33 @@
 <template>
   <div class="profile-container">
     <header class="profile-header">
-      <img src="@/assets/profile-picture.jpg" alt="김동규 프로필" class="profile-image" />
-
-      <div class="profile-links">
-        <a :href="gitLink" target="_blank">
-          <font-awesome-icon icon="fa-brands fa-github" size="2x" class="profile-link-icon" />
-        </a>
-        <a :href="blogLink" target="_blank">
-          <font-awesome-icon icon="fa-solid fa-rss" size="2x" class="profile-link-icon" />
-        </a>
+      <div class="profile-image-container">
+        <img src="@/assets/profile-picture.jpg" alt="김동규 프로필" class="profile-image" />
       </div>
-
       <div class="profile-info">
         <h1>김동규</h1>
         <p class="tagline">조금씩 이라도 매일 배우자</p>
         <p class="hashtags">#성장 #협동 #기초 #커뮤니케이션</p>
+        <div class="profile-links">
+          <a :href="gitLink" target="_blank" class="profile-link">
+            <font-awesome-icon :icon="['fab', 'github']" size="lg" class="profile-link-icon" />
+            GitHub
+          </a>
+          <a :href="blogLink" target="_blank" class="profile-link">
+            <font-awesome-icon icon="rss" size="lg" class="profile-link-icon" />
+            Blog
+          </a>
+          <a :href="resumeLink" target="_blank" class="profile-link">
+            <font-awesome-icon icon="file-pdf" size="lg" class="profile-link-icon" />
+            이력서
+          </a>
+        </div>
+        <div class="contact-info">
+          <p><font-awesome-icon icon="phone" /> 010 4048 8292</p>
+          <p><font-awesome-icon icon="envelope" /> wlsntus55@gmail.com</p>
+        </div>
       </div>
     </header>
-
     <main class="profile-content">
       <section class="highlights">
         <h2>핵심 역량</h2>
@@ -73,15 +82,16 @@
 <script setup>
 import { ref } from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUsers, faGlobe, faGraduationCap, faRss } from '@fortawesome/free-solid-svg-icons'
+import { faUsers, faGlobe, faGraduationCap, faRss, faPhone, faEnvelope, faFilePdf } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // FontAwesome 아이콘 라이브러리 설정
-library.add(faUsers, faGlobe, faGraduationCap, faGithub, faRss)
+library.add(faUsers, faGlobe, faGraduationCap, faGithub, faRss, faPhone, faEnvelope, faFilePdf)
 
-const gitLink = 'https://github.com/yourusername/your-repository' // GitHub 특정 레포지토리 링크
-const blogLink = 'https://yourblog.com' // 블로그 링크
+const gitLink = 'https://github.com/dongkyukim1'
+const blogLink = 'https://begin-developer.tistory.com/'
+const resumeLink = '/resume/김동규_이력서.pdf'
 
 const experience = ref([
   { id: 1, title: '태흥 엔지니어링 해외 출장 담당자  ', period: '2022.12 ~ 2023.06' },
@@ -99,7 +109,7 @@ const education = ref([
 
 const highlights = ref([
   { id: 1, icon: 'users', title: '프로젝트 리더십', description: '3번의 프로젝트 조장 경험' },
-  { id: 2, icon: 'globe', title: '글로벌 역량', description: '해외 교환학생 및 출장 경험' },
+  { id: 2, icon: 'globe', title: '글로벌 역량', description: '해외 교환학생 & 미국 출장관리자 ' },
   { id: 3, icon: 'graduation-cap', title: '지속적 성장', description: '최근 자격증 취득 및 교육 이수' },
 ])
 
@@ -116,7 +126,7 @@ const skillCategories = ref([
     name: '프레임워크 & 라이브러리',
     skills: [
       {name: 'Spring'},
-      {name: 'Spring Boot'},
+      {name: 'SpringBoot'},
       {name: 'React'},
       {name: 'Vue.js'},
       {name: 'jQuery'},
@@ -153,7 +163,7 @@ const skillCategories = ref([
       {name: 'Docker'},
       {name: 'Kubernetes'},
       {name: 'AWS'},
-      {name: 'node.js'},
+      {name: 'Node.js'},
       {name: 'Tomcat'}
     ]
   }
@@ -161,8 +171,8 @@ const skillCategories = ref([
 
 const getSkillIcon = (skillName) => {
   const specialCases = {
-    'Node.js': 'nodejs',
-    'Vue': 'vuejs',
+    'Node.js': 'node.js',
+    'Vue.js': 'vue.js',
     'jQuery': 'jquery',
     'BootStrap': 'bootstrap',
   };
@@ -180,39 +190,97 @@ const getSkillIcon = (skillName) => {
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 
 .profile-container {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   font-family: 'Jua', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  overflow-y: auto; /* 내용이 넘칠 경우 스크롤 허용 */
+  height: auto; /* 높이 제한 제거 */
 }
 
 .profile-header {
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-image-container {
+  flex-shrink: 0;
+  margin-right: 2rem;
 }
 
 .profile-image {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 2rem;
+  border: 4px solid #40adfb;
+}
+
+.profile-info {
+  flex-grow: 1;
 }
 
 .profile-info h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
+  color: #2c3e50;
 }
 
 .tagline {
   font-size: 1.2rem;
-  color: #3498db;
+  color: #40adfb;
   margin-bottom: 0.5rem;
 }
 
 .hashtags {
-  color: #7f8c8d;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-link {
+  display: inline-flex;
+  align-items: center;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background-color: #40adfb;
+}
+
+.profile-link:hover {
+  background-color: #2c3e50;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-link-icon {
+  margin-right: 0.5rem;
+}
+
+.contact-info {
+  font-size: 1rem;
+  color: #2c3e4f;
+}
+
+.contact-info p {
+  margin: 0.5rem 0;
 }
 
 .profile-content {
@@ -225,13 +293,13 @@ h2 {
   font-size: 1.8rem;
   color: #2c3e50;
   margin-bottom: 1rem;
-  border-bottom: 2px solid #3498db;
+  border-bottom: 2px solid #40adfb;
   padding-bottom: 0.5rem;
 }
 
 h3 {
   font-size: 1.3rem;
-  color: #34495e;
+  color: #40adfb;
   margin-bottom: 0.5rem;
 }
 
@@ -244,17 +312,43 @@ li {
   margin-bottom: 0.5rem;
 }
 
-.highlights-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
-
 .highlight-item {
-  background-color: #f8f9fa;
+  background-color: #f8f9fa; /* 배경색을 약간 밝은 색으로 변경 */
   padding: 1rem;
   border-radius: 8px;
-  text-align: center;
+  color: #40adfb;
+  text-align: left; /* 가로 정렬을 위해 좌측 정렬 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex; /* 플렉스 박스 사용 */
+  align-items: center; /* 수직 정렬 */
+  gap: 1rem; /* 아이콘과 텍스트 사이에 간격 추가 */
+  border: 1px solid #d1d1d1; /* 테두리 추가 */
+  margin-bottom: 1rem; /* 요소 사이에 간격 추가 */
+  transition: background-color 0.3s, transform 0.3s; /* 배경색과 변환 효과에 트랜지션 추가 */
+}
+
+.highlight-item:hover {
+  background-color: #e0f7fa; /* 호버 시 배경색 변경 */
+  transform: translateY(-5px); /* 호버 시 약간 위로 이동 */
+}
+
+.highlight-item h3 {
+  margin: 0 0 0.5rem 0; /* 제목과 설명 사이에 간격 추가 */
+  font-size: 1.5rem;
+  color: #062fec;
+}
+
+.highlight-item p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3개의 칼럼으로 정렬 */
+  gap: 1.5rem; /* 칼럼 사이에 간격 추가 */
+
 }
 
 .experience-education {
@@ -278,10 +372,11 @@ li {
 .skill-item {
   display: flex;
   align-items: center;
-  background-color: #f8f9fa;
+  background-color: #ffffff;
   padding: 0.5rem;
   border-radius: 4px;
   font-size: 0.9rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .skill-item img {
@@ -297,23 +392,31 @@ li {
 .hover-effect:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f1f8ff;
 }
 
 @media (max-width: 768px) {
   .profile-header {
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
 
-  .profile-image {
+  .profile-image-container {
     margin-right: 0;
     margin-bottom: 1rem;
+  }
+
+  .profile-links {
+    justify-content: center;
   }
 
   .highlights-grid,
   .experience-education,
   .skill-categories {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
   }
 }
 </style>
