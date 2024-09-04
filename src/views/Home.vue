@@ -87,7 +87,6 @@
       </section>
     </main>
 
-    <Projects ref="projectsSection" />
   </div>
 </template>
 
