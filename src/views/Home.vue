@@ -96,7 +96,7 @@ library.add(faUsers, faGlobe, faGraduationCap, faGithub, faRss, faPhone, faEnvel
 
 const gitLink = 'https://github.com/dongkyukim1'
 const blogLink = 'https://begin-developer.tistory.com/'
-const resumeLink = '/resume/김동규_이력서.pdf'
+const resumeLink = '/resume/resume.pdf';
 const email = 'wlsntus55@gmail.com'
 
 const experience = ref([
@@ -444,16 +444,36 @@ li {
     margin-bottom: 1rem;
   }
 
+  .profile-info {
+    text-align: center;
+  }
+
   .profile-links {
+    justify-content: center;
+  }
+
+  .contact-info {
     justify-content: center;
   }
 
   .highlights-grid,
   .experience-education,
   .skill-categories {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr; /* 1열 레이아웃으로 변경 */
     gap: 2rem;
+  }
+
+  .highlight-item {
+    text-align: center;
+    justify-content: center;
+  }
+
+  .skill-items {
+    justify-content: center;
+  }
+
+  .skill-item {
+    justify-content: center;
   }
 }
 </style>

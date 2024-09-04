@@ -69,7 +69,7 @@ export default {
 
     const scrollToSection = (sectionId) => {
       if (home.value && home.value.$refs[sectionId]) {
-        home.value.$refs[sectionId].scrollIntoView({ behavior: 'smooth' });
+        home.value.$refs[sectionId].scrollIntoView({behavior: 'smooth'});
       }
     }
 
@@ -82,19 +82,12 @@ export default {
 </script>
 
 <style>
-:root {
-  --primary-color: #3498db;
-  --secondary-color: #2c3e50;
-  --background-color: #f8f9fa;
-  --text-color: #333;
-}
-
 body {
   margin: 0;
   padding: 0;
   font-family: 'Noto Sans KR', 'Roboto', sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background-color: #f8f9fa;
+  color: #333;
 }
 
 #app {
@@ -104,7 +97,7 @@ body {
 }
 
 header {
-  background-color: var(--secondary-color);
+  background-color: #2c3e50;
   color: white;
   padding: 0.5rem 1rem;
   display: flex;
@@ -125,21 +118,19 @@ nav, .social-icons {
   text-decoration: none;
   font-size: 1.2rem;
   cursor: pointer;
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .nav-item:hover {
-  color: var(--primary-color);
+  color: #3498db;
 }
 
 .tooltip {
   visibility: hidden;
   background-color: #555;
   color: #fff;
-  text-align: center;
   border-radius: 6px;
   padding: 5px 8px;
   position: absolute;
@@ -175,30 +166,39 @@ nav, .social-icons {
 }
 
 footer {
-  background-color: var(--secondary-color);
+  background-color: #2c3e50;
   color: white;
   text-align: center;
   padding: 0.5rem;
   font-size: 0.9rem;
 }
 
-/* 반응형 디자인을 위한 미디어 쿼리 */
 @media (max-width: 768px) {
+  header {
+    flex-direction: column;
+  }
+
+  nav {
+    flex-direction: row; /* 세로가 아닌 가로로 정렬되도록 수정 */
+  }
+
+  .social-icons {
+    flex-direction: row; /* 세로가 아닌 가로로 정렬되도록 수정 */
+    margin-top: 0.5rem;
+  }
+
+  .nav-item {
+    font-size: 1rem;
+  }
+
   .main-content {
     flex-direction: column;
   }
 
   .left-content, .right-content {
-    flex: 1;
-    overflow-y: auto;
+    height: calc(100vh - 60px);
     padding: 1rem;
-    height: calc(100vh - 60px); /* 헤더와 푸터 높이를 고려하여 조정 */
-  }
-
-  .left-content {
-    border-right: 1px solid #e0e0e0;
-    display: block !important; /* 추가 */
-    visibility: visible !important; /* 추가 */
+    border-right: none;
   }
 }
 </style>

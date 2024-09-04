@@ -26,6 +26,7 @@
       </div>
     </div>
 
+    <!-- 프로젝트 상세 -->
     <div class="project-details">
       <h2>프로젝트 상세</h2>
       <div class="details-grid">
@@ -37,6 +38,7 @@
       </div>
     </div>
 
+    <!-- 프로페셔널 목표 -->
     <div class="additional-content">
       <h2>프로페셔널 목표</h2>
       <div class="professional-goals">
@@ -142,10 +144,9 @@ const openLink = (url) => {
 
 .full-height {
   font-family: 'Jua', sans-serif;
-  height: 100%;
-  overflow-y: auto;
   padding: 1rem;
   background-color: #f5f5f5;
+  min-height: 100vh; /* 페이지 전체 높이 */
 }
 
 .project-grid {
@@ -155,13 +156,19 @@ const openLink = (url) => {
   margin-bottom: 2rem;
 }
 
+@media (max-width: 768px) {
+  .project-grid {
+    grid-template-columns: 1fr; /* 모바일에서 한 열로 */
+  }
+}
+
 .project-item {
   position: relative;
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  height: 180px;
+  min-height: 200px; /* 최소 높이 */
 }
 
 .project-item img {
@@ -225,7 +232,7 @@ const openLink = (url) => {
 
 .highlights-grid, .details-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr); /* 4열로 정렬 */
   gap: 0.75rem;
 }
 
@@ -279,7 +286,7 @@ p {
 
 .professional-goals {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* 3열로 정렬 */
   gap: 1.25rem;
 }
 
@@ -306,9 +313,26 @@ p {
   line-height: 1.4;
 }
 
+/* 반응형 */
 @media (max-width: 768px) {
   .project-grid, .highlights-grid, .details-grid, .professional-goals {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* 모바일에서 1열로 정렬 */
+  }
+
+  .highlight-item, .detail-item {
+    padding: 0.5rem;
+  }
+
+  .project-overlay h3 {
+    font-size: 1.1rem;
+  }
+
+  .project-overlay p {
+    font-size: 0.9rem;
+  }
+
+  .project-highlight {
+    font-size: 0.7rem;
   }
 }
 </style>
