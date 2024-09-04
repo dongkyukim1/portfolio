@@ -1,5 +1,6 @@
+<!-- Projects.vue -->
 <template>
-  <div class="projects full-height">
+  <div class="projects full-height" id="projects">
     <h2>프로젝트 목록</h2>
     <div class="project-grid">
       <div v-for="project in projects" :key="project.id" class="project-item" @click="openLink(project.link)">
@@ -26,7 +27,6 @@
       </div>
     </div>
 
-    <!-- 프로젝트 상세 -->
     <div class="project-details">
       <h2>프로젝트 상세</h2>
       <div class="details-grid">
@@ -38,7 +38,6 @@
       </div>
     </div>
 
-    <!-- 프로페셔널 목표 -->
     <div class="additional-content">
       <h2>프로페셔널 목표</h2>
       <div class="professional-goals">
@@ -146,7 +145,7 @@ const openLink = (url) => {
   font-family: 'Jua', sans-serif;
   padding: 1rem;
   background-color: #f5f5f5;
-  min-height: 100vh; /* 페이지 전체 높이 */
+  min-height: 100vh;
 }
 
 .project-grid {
@@ -156,19 +155,13 @@ const openLink = (url) => {
   margin-bottom: 2rem;
 }
 
-@media (max-width: 768px) {
-  .project-grid {
-    grid-template-columns: 1fr; /* 모바일에서 한 열로 */
-  }
-}
-
 .project-item {
   position: relative;
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  min-height: 200px; /* 최소 높이 */
+  min-height: 200px;
 }
 
 .project-item img {
@@ -232,7 +225,7 @@ const openLink = (url) => {
 
 .highlights-grid, .details-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4열로 정렬 */
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;
 }
 
@@ -286,7 +279,7 @@ p {
 
 .professional-goals {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3열로 정렬 */
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
 }
 
@@ -313,14 +306,20 @@ p {
   line-height: 1.4;
 }
 
-/* 반응형 */
 @media (max-width: 768px) {
-  .project-grid, .highlights-grid, .details-grid, .professional-goals {
-    grid-template-columns: 1fr; /* 모바일에서 1열로 정렬 */
+  .full-height {
+    padding: 1rem 0.5rem;
   }
 
-  .highlight-item, .detail-item {
-    padding: 0.5rem;
+  .project-grid,
+  .highlights-grid,
+  .details-grid,
+  .professional-goals {
+    grid-template-columns: 1fr;
+  }
+
+  .project-item {
+    min-height: 150px;
   }
 
   .project-overlay h3 {
@@ -333,6 +332,23 @@ p {
 
   .project-highlight {
     font-size: 0.7rem;
+  }
+
+  .highlight-item,
+  .detail-item {
+    padding: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  p, .goal-item li {
+    font-size: 0.9rem;
   }
 }
 </style>

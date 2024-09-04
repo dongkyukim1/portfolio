@@ -1,3 +1,4 @@
+<!-- Home.vue -->
 <template>
   <div class="profile-container">
     <header class="profile-header" ref="profileSection">
@@ -11,15 +12,19 @@
         <div class="profile-links">
           <a :href="gitLink" target="_blank" class="profile-link">
             <font-awesome-icon :icon="['fab', 'github']" size="lg" class="profile-link-icon" />
-            GitHub
+            <span class="link-text">GitHub</span>
           </a>
           <a :href="blogLink" target="_blank" class="profile-link">
             <font-awesome-icon icon="rss" size="lg" class="profile-link-icon" />
-            Blog
+            <span class="link-text">Blog</span>
           </a>
           <a :href="resumeLink" target="_blank" class="profile-link">
             <font-awesome-icon icon="file-pdf" size="lg" class="profile-link-icon" />
-            이력서
+            <span class="link-text">이력서</span>
+          </a>
+          <a href="#projects" class="profile-link" @click.prevent="scrollToProjects">
+            <font-awesome-icon icon="project-diagram" size="lg" class="profile-link-icon" />
+            <span class="link-text">프로젝트</span>
           </a>
         </div>
         <div class="contact-info">
@@ -81,18 +86,20 @@
         </div>
       </section>
     </main>
+
+    <Projects ref="projectsSection" />
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUsers, faGlobe, faGraduationCap, faRss, faPhone, faEnvelope, faFilePdf } from '@fortawesome/free-solid-svg-icons'
+import { faUsers, faGlobe, faGraduationCap, faRss, faPhone, faEnvelope, faFilePdf, faProjectDiagram } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // FontAwesome 아이콘 라이브러리 설정
-library.add(faUsers, faGlobe, faGraduationCap, faGithub, faRss, faPhone, faEnvelope, faFilePdf)
+library.add(faUsers, faGlobe, faGraduationCap, faGithub, faRss, faPhone, faEnvelope, faFilePdf, faProjectDiagram)
 
 const gitLink = 'https://github.com/dongkyukim1'
 const blogLink = 'https://begin-developer.tistory.com/'
@@ -190,6 +197,12 @@ const getSkillIcon = (skillName) => {
     return new URL('../components/icons/default.svg', import.meta.url).href;
   }
 }
+
+const projectsSection = ref(null)
+
+const scrollToProjects = () => {
+  projectsSection.value.$el.scrollIntoView({ behavior: 'smooth' })
+}
 </script>
 
 <style scoped>
@@ -197,27 +210,20 @@ const getSkillIcon = (skillName) => {
 
 .profile-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 900px; /* 최대 너비를 줄여 여유 공간 확보 */
   margin: 0 auto;
   padding: 2rem;
   font-family: 'Jua', sans-serif;
   background-color: #f8f9fa;
   color: #333;
-  overflow-y: auto; /* 내용이 넘칠 경우 스크롤 허용 */
-  height: auto; /* 높이 제한 제거 */
-}
-
-.job-title {
-  font-size: 1.5rem;
-  color: #40adfb;
-  margin-left: 1rem;
-  font-weight: normal;
+  overflow-y: auto;
+  height: auto;
 }
 
 .profile-header {
   display: flex;
-  align-items: center;
-  margin-bottom: 2rem;
+  align-items: flex-start; /* 상단 정렬로 변경 */
+  margin-bottom: 3rem; /* 여백 증가 */
   background-color: #ffffff;
   border-radius: 10px;
   padding: 2rem;
@@ -230,8 +236,8 @@ const getSkillIcon = (skillName) => {
 }
 
 .profile-image {
-  width: 200px;
-  height: 200px;
+  width: 180px; /* 이미지 크기 약간 감소 */
+  height: 180px;
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid #40adfb;
@@ -242,13 +248,20 @@ const getSkillIcon = (skillName) => {
 }
 
 .profile-info h1 {
-  font-size: 2.5rem;
+  font-size: 2.3rem; /* 폰트 크기 약간 감소 */
   margin-bottom: 0.5rem;
   color: #2c3e50;
 }
 
+.job-title {
+  font-size: 1.3rem;
+  color: #40adfb;
+  margin-left: 1rem;
+  font-weight: normal;
+}
+
 .tagline {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #40adfb;
   margin-bottom: 0.5rem;
 }
@@ -271,8 +284,8 @@ const getSkillIcon = (skillName) => {
   color: #ffffff;
   text-decoration: none;
   transition: all 0.3s ease;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
+  font-size: 0.9rem; /* 폰트 크기 약간 감소 */
+  padding: 0.4rem 0.8rem; /* 패딩 약간 감소 */
   border-radius: 20px;
   background-color: #40adfb;
 }
@@ -300,7 +313,7 @@ const getSkillIcon = (skillName) => {
   color: #2c3e4f;
   text-decoration: none;
   transition: all 0.3s ease;
-  font-size: 1rem;
+  font-size: 0.9rem; /* 폰트 크기 약간 감소 */
 }
 
 .contact-link:hover {
@@ -311,32 +324,22 @@ const getSkillIcon = (skillName) => {
   margin-right: 0.5rem;
 }
 
-@media (max-width: 768px) {
-  .contact-info {
-    justify-content: center;
-  }
-}
-
-.contact-info p {
-  margin: 0.5rem 0;
-}
-
 .profile-content {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 3rem; /* 섹션 간 간격 증가 */
 }
 
 h2 {
-  font-size: 1.8rem;
+  font-size: 1.6rem; /* 폰트 크기 약간 감소 */
   color: #2c3e50;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem; /* 여백 증가 */
   border-bottom: 2px solid #40adfb;
   padding-bottom: 0.5rem;
 }
 
 h3 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: #40adfb;
   margin-bottom: 0.5rem;
 }
@@ -347,56 +350,56 @@ ul {
 }
 
 li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem; /* 여백 증가 */
 }
 
 .highlight-item {
-  background-color: #f8f9fa; /* 배경색을 약간 밝은 색으로 변경 */
-  padding: 1rem;
+  background-color: #f8f9fa;
+  padding: 1.2rem; /* 패딩 증가 */
   border-radius: 8px;
   color: #40adfb;
-  text-align: left; /* 가로 정렬을 위해 좌측 정렬 */
+  text-align: left;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex; /* 플렉스 박스 사용 */
-  align-items: center; /* 수직 정렬 */
-  gap: 1rem; /* 아이콘과 텍스트 사이에 간격 추가 */
-  border: 1px solid #d1d1d1; /* 테두리 추가 */
-  margin-bottom: 1rem; /* 요소 사이에 간격 추가 */
-  transition: background-color 0.3s, transform 0.3s; /* 배경색과 변환 효과에 트랜지션 추가 */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid #d1d1d1;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .highlight-item:hover {
-  background-color: #e0f7fa; /* 호버 시 배경색 변경 */
-  transform: translateY(-5px); /* 호버 시 약간 위로 이동 */
+  background-color: #e0f7fa;
+  transform: translateY(-5px);
 }
 
 .highlight-item h3 {
-  margin: 0 0 0.5rem 0; /* 제목과 설명 사이에 간격 추가 */
-  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.3rem; /* 폰트 크기 약간 감소 */
   color: #000000;
 }
 
 .highlight-item p {
   margin: 0;
   color: #6c757d;
-  font-size: 1rem;
+  font-size: 0.9rem; /* 폰트 크기 약간 감소 */
 }
 
 .highlights-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3개의 칼럼으로 정렬 */
-  gap: 1.5rem; /* 칼럼 사이에 간격 추가 */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 반응형 그리드로 변경 */
+  gap: 1.5rem;
 }
 
 .experience-education {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 2rem;
 }
 
 .skill-categories {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 그리드 열 너비 조정 */
   gap: 1.5rem;
 }
 
@@ -412,13 +415,13 @@ li {
   background-color: #ffffff;
   padding: 0.5rem;
   border-radius: 4px;
-  font-size: 0.9rem;
+  font-size: 0.85rem; /* 폰트 크기 약간 감소 */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .skill-item img {
-  width: 20px;
-  height: 20px;
+  width: 18px; /* 아이콘 크기 약간 감소 */
+  height: 18px;
   margin-right: 0.5rem;
 }
 
@@ -433,6 +436,10 @@ li {
 }
 
 @media (max-width: 768px) {
+  .profile-container {
+    padding: 1rem;
+  }
+
   .profile-header {
     flex-direction: column;
     align-items: center;
@@ -444,23 +451,62 @@ li {
     margin-bottom: 1rem;
   }
 
+  .profile-image {
+    width: 150px;
+    height: 150px;
+  }
+
   .profile-info {
     text-align: center;
+  }
+
+  .profile-info h1 {
+    font-size: 2rem;
+  }
+
+  .job-title {
+    font-size: 1.2rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+  }
+
+  .hashtags {
+    font-size: 0.9rem;
   }
 
   .profile-links {
     justify-content: center;
   }
 
+  .profile-link {
+    margin: 0.25rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .link-text {
+    display: none;
+  }
+
+  .profile-link-icon {
+    margin-right: 0;
+  }
+
   .contact-info {
     justify-content: center;
+  }
+
+  .contact-link {
+    font-size: 0.9rem;
   }
 
   .highlights-grid,
   .experience-education,
   .skill-categories {
-    grid-template-columns: 1fr; /* 1열 레이아웃으로 변경 */
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .highlight-item {

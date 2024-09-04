@@ -18,6 +18,10 @@
           <font-awesome-icon icon="code" />
           <span class="tooltip">기술</span>
         </a>
+        <a @click="scrollToSection('projectsSection')" class="nav-item">
+          <font-awesome-icon icon="project-diagram" />
+          <span class="tooltip">프로젝트</span>
+        </a>
       </nav>
       <div class="social-icons">
         <a href="https://github.com/dongkyukim1" target="_blank" rel="noopener noreferrer" class="nav-item">
@@ -36,8 +40,12 @@
     </header>
 
     <main class="main-content">
-      <Home ref="home" class="left-content" />
-      <Projects class="right-content" />
+      <div class="left-content">
+        <Home ref="home" />
+      </div>
+      <div class="right-content">
+        <Projects ref="projects" />
+      </div>
     </main>
 
     <footer>
@@ -51,11 +59,11 @@ import { ref } from 'vue'
 import Home from './views/Home.vue'
 import Projects from './views/Projects.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHome, faStar, faBriefcase, faCode, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faStar, faBriefcase, faCode, faPhone, faProjectDiagram } from '@fortawesome/free-solid-svg-icons'
 import { faGithub, faBlogger } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faHome, faStar, faBriefcase, faCode, faPhone, faGithub, faBlogger)
+library.add(faHome, faStar, faBriefcase, faCode, faPhone, faProjectDiagram, faGithub, faBlogger)
 
 export default {
   name: 'App',
@@ -66,15 +74,19 @@ export default {
   },
   setup() {
     const home = ref(null)
+    const projects = ref(null)
 
     const scrollToSection = (sectionId) => {
-      if (home.value && home.value.$refs[sectionId]) {
+      if (sectionId === 'projectsSection' && projects.value) {
+        projects.value.$el.scrollIntoView({behavior: 'smooth'});
+      } else if (home.value && home.value.$refs[sectionId]) {
         home.value.$refs[sectionId].scrollIntoView({behavior: 'smooth'});
       }
     }
 
     return {
       home,
+      projects,
       scrollToSection
     }
   }
@@ -121,6 +133,7 @@ nav, .social-icons {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative; /* 추가 */
 }
 
 .nav-item:hover {
@@ -196,9 +209,18 @@ footer {
   }
 
   .left-content, .right-content {
-    height: calc(100vh - 60px);
-    padding: 1rem;
+    width: 100%;
     border-right: none;
+  }
+  .right-content {
+    border-top: 1px solid #e0e0e0;
+  }
+  .tooltip {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: auto;
   }
 }
 </style>
