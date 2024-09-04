@@ -22,10 +22,6 @@
             <font-awesome-icon icon="file-pdf" size="lg" class="profile-link-icon" />
             <span class="link-text">이력서</span>
           </a>
-          <a href="#projects" class="profile-link" @click.prevent="scrollToProjects">
-            <font-awesome-icon icon="project-diagram" size="lg" class="profile-link-icon" />
-            <span class="link-text">프로젝트</span>
-          </a>
         </div>
         <div class="contact-info">
           <a :href="'tel:' + phoneNumber" class="contact-link">
@@ -319,7 +315,7 @@ const scrollToProjects = () => {
   color: #40adfb;
 }
 
-.contact-link .svg-inline--fa {
+.contact-link{
   margin-right: 0.5rem;
 }
 
