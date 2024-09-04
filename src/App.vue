@@ -2,19 +2,19 @@
   <div id="app">
     <header>
       <nav>
-        <a @click="scrollToSection('profile')" class="nav-item">
+        <a @click="scrollToSection('profileSection')" class="nav-item">
           <font-awesome-icon icon="home" />
           <span class="tooltip">Home</span>
         </a>
-        <a @click="scrollToSection('highlights')" class="nav-item">
+        <a @click="scrollToSection('highlightsSection')" class="nav-item">
           <font-awesome-icon icon="star" />
           <span class="tooltip">핵심 역량</span>
         </a>
-        <a @click="scrollToSection('experience')" class="nav-item">
+        <a @click="scrollToSection('experienceSection')" class="nav-item">
           <font-awesome-icon icon="briefcase" />
           <span class="tooltip">경력</span>
         </a>
-        <a @click="scrollToSection('skills')" class="nav-item">
+        <a @click="scrollToSection('skillsSection')" class="nav-item">
           <font-awesome-icon icon="code" />
           <span class="tooltip">기술</span>
         </a>
@@ -80,7 +80,6 @@ export default {
   }
 }
 </script>
-
 
 <style>
 :root {

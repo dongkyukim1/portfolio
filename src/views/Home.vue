@@ -1,11 +1,11 @@
 <template>
   <div class="profile-container">
-    <header class="profile-header">
+    <header class="profile-header" ref="profileSection">
       <div class="profile-image-container">
         <img src="@/assets/profile-picture.jpg" alt="김동규 프로필" class="profile-image" />
       </div>
       <div class="profile-info">
-        <h1>김동규</h1>
+        <h1>김동규 <span class="job-title">웹 개발자</span></h1>
         <p class="tagline">조금씩 이라도 매일 배우자</p>
         <p class="hashtags">#성장 #협동 #기초 #커뮤니케이션</p>
         <div class="profile-links">
@@ -23,13 +23,18 @@
           </a>
         </div>
         <div class="contact-info">
-          <p><font-awesome-icon icon="phone" /> 010 4048 8292</p>
-          <p><font-awesome-icon icon="envelope" /> wlsntus55@gmail.com</p>
+          <a :href="'tel:' + phoneNumber" class="contact-link">
+            <font-awesome-icon icon="phone" /> 010 4048 8292
+          </a>
+          <a :href="'mailto:' + email" class="contact-link">
+            <font-awesome-icon icon="envelope" /> wlsntus55@gmail.com
+          </a>
         </div>
       </div>
     </header>
+
     <main class="profile-content">
-      <section class="highlights">
+      <section class="highlights" ref="highlightsSection">
         <h2>핵심 역량</h2>
         <div class="highlights-grid">
           <div v-for="highlight in highlights" :key="highlight.id" class="highlight-item hover-effect">
@@ -40,7 +45,7 @@
         </div>
       </section>
 
-      <section class="experience-education">
+      <section class="experience-education"  ref="experienceSection">
         <div class="experience">
           <h2>경력</h2>
           <ul>
@@ -61,7 +66,7 @@
         </div>
       </section>
 
-      <section class="skills">
+      <section class="skills" ref="skillsSection">
         <h2>보유 기술</h2>
         <div class="skill-categories">
           <div v-for="category in skillCategories" :key="category.name" class="skill-category">
@@ -92,6 +97,7 @@ library.add(faUsers, faGlobe, faGraduationCap, faGithub, faRss, faPhone, faEnvel
 const gitLink = 'https://github.com/dongkyukim1'
 const blogLink = 'https://begin-developer.tistory.com/'
 const resumeLink = '/resume/김동규_이력서.pdf'
+const email = 'wlsntus55@gmail.com'
 
 const experience = ref([
   { id: 1, title: '태흥 엔지니어링 해외 출장 담당자  ', period: '2022.12 ~ 2023.06' },
@@ -201,6 +207,13 @@ const getSkillIcon = (skillName) => {
   height: auto; /* 높이 제한 제거 */
 }
 
+.job-title {
+  font-size: 1.5rem;
+  color: #40adfb;
+  margin-left: 1rem;
+  font-weight: normal;
+}
+
 .profile-header {
   display: flex;
   align-items: center;
@@ -275,8 +288,33 @@ const getSkillIcon = (skillName) => {
 }
 
 .contact-info {
-  font-size: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
   color: #2c3e4f;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.contact-link:hover {
+  color: #40adfb;
+}
+
+.contact-link .svg-inline--fa {
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .contact-info {
+    justify-content: center;
+  }
 }
 
 .contact-info p {
@@ -335,7 +373,7 @@ li {
 .highlight-item h3 {
   margin: 0 0 0.5rem 0; /* 제목과 설명 사이에 간격 추가 */
   font-size: 1.5rem;
-  color: #062fec;
+  color: #000000;
 }
 
 .highlight-item p {
@@ -348,7 +386,6 @@ li {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3개의 칼럼으로 정렬 */
   gap: 1.5rem; /* 칼럼 사이에 간격 추가 */
-
 }
 
 .experience-education {

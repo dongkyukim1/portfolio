@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+.profile-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Jua', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 허용 */
+    height: auto; /* 높이 제한 제거 */
+}
+
+.job-title {
+    font-size: 1.5rem;
+    color: #40adfb;
+    margin-left: 1rem;
+    font-weight: normal;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-image-container {
+    flex-shrink: 0;
+    margin-right: 2rem;
+}
+
+.profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #40adfb;
+}
+
+.profile-info {
+    flex-grow: 1;
+}
+
+.profile-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #40adfb;
+    margin-bottom: 0.5rem;
+}
+
+.hashtags {
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.profile-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.profile-link {
+    display: inline-flex;
+    align-items: center;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background-color: #40adfb;
+}
+
+.profile-link:hover {
+    background-color: #2c3e50;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-link-icon {
+    margin-right: 0.5rem;
+}
+
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.contact-link {
+    display: inline-flex;
+    align-items: center;
+    color: #2c3e4f;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.contact-link:hover {
+    color: #40adfb;
+}
+
+.contact-link .svg-inline--fa {
+    margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .contact-info {
+        justify-content: center;
+    }
+}
+
+.contact-info p {
+    margin: 0.5rem 0;
+}
+
+.profile-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #40adfb;
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.3rem;
+    color: #40adfb;
+    margin-bottom: 0.5rem;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+.highlight-item {
+    background-color: #f8f9fa; /* 배경색을 약간 밝은 색으로 변경 */
+    padding: 1rem;
+    border-radius: 8px;
+    color: #40adfb;
+    text-align: left; /* 가로 정렬을 위해 좌측 정렬 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex; /* 플렉스 박스 사용 */
+    align-items: center; /* 수직 정렬 */
+    gap: 1rem; /* 아이콘과 텍스트 사이에 간격 추가 */
+    border: 1px solid #d1d1d1; /* 테두리 추가 */
+    margin-bottom: 1rem; /* 요소 사이에 간격 추가 */
+    transition: background-color 0.3s, transform 0.3s; /* 배경색과 변환 효과에 트랜지션 추가 */
+}
+
+.highlight-item:hover {
+    background-color: #e0f7fa; /* 호버 시 배경색 변경 */
+    transform: translateY(-5px); /* 호버 시 약간 위로 이동 */
+}
+
+.highlight-item h3 {
+    margin: 0 0 0.5rem 0; /* 제목과 설명 사이에 간격 추가 */
+    font-size: 1.5rem;
+    color: #000000;
+}
+
+.highlight-item p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3개의 칼럼으로 정렬 */
+    gap: 1.5rem; /* 칼럼 사이에 간격 추가 */
+}
+
+.experience-education {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.skill-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.skill-item img {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.5rem;
+}
+
+.hover-effect {
+    transition: all 0.3s ease;
+}
+
+.hover-effect:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f1f8ff;
+}
+
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-image-container {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    .profile-links {
+        justify-content: center;
+    }
+
+    .highlights-grid,
+    .experience-education,
+    .skill-categories {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+}
