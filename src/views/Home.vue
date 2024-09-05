@@ -116,7 +116,7 @@ const education = ref([
 ])
 
 const highlights = ref([
-  { id: 1, icon: 'users', title: '프로젝트 리더십', description: '3번의 프로젝트 조장 경험' },
+  { id: 1, icon: 'users', title: '프로젝트 리더십', description: '세 번의 프로젝트 조장 경험' },
   { id: 2, icon: 'globe', title: '글로벌 역량', description: '해외 교환학생 & 미국 출장관리자 ' },
   { id: 3, icon: 'graduation-cap', title: '지속적 성장', description: '최근 자격증 취득 및 교육 이수' },
 ])
