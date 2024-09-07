@@ -263,7 +263,6 @@ html, body {
   font-family: 'Jua', sans-serif;
   background-color: #f8f9fa;
   color: #333;
-
 }
 
 .profile-header {
@@ -505,6 +504,7 @@ li {
   }
 }
 
+/* 작은 화면 반응형 조정 */
 @media (max-width: 768px) {
   .profile-container {
     padding: 1rem;
@@ -554,6 +554,18 @@ li {
 
   .highlight-item, .skill-item {
     justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .highlights-grid,
+  .skill-categories {
+    grid-template-columns: 1fr; /* 더 작은 화면에서는 단일 열로 변경 */
+  }
+
+  .highlight-item, .skill-item {
+    justify-content: center;
+    text-align: center;
   }
 }
 </style>
