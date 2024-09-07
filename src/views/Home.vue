@@ -246,12 +246,12 @@ const getSkillIcon = (skillName) => {
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* 기본 스타일 설정 */
 html, body {
-  margin: 0;
-  padding: 0;
   overflow-x: hidden; /* 전역적으로 가로 스크롤 방지 */
 }
 
@@ -288,12 +288,12 @@ html, body {
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid #40adfb;
-  left: 2em;
 }
 
 .profile-info {
-  position: relative; /* 상대적 위치 조정 가능하도록 설정 */
-  left: -9em; /* 왼쪽으로 20px 이동 */
+  position: relative;
+  text-align: center; /* 모바일에서 중앙 정렬 */
+  margin-left: 0; /* 강제 이동을 없앰 */
 }
 
 .profile-info h1 {
@@ -558,9 +558,20 @@ li {
 }
 
 @media (max-width: 480px) {
-  .highlights-grid,
-  .skill-categories {
-    grid-template-columns: 1fr; /* 더 작은 화면에서는 단일 열로 변경 */
+  .profile-container {
+    padding: 1rem;
+  }
+
+  .profile-header {
+    padding: 1rem;
+  }
+
+  .profile-info h1 {
+    font-size: 1.6rem;
+  }
+
+  .job-title {
+    font-size: 1rem;
   }
 
   .highlight-item, .skill-item {
