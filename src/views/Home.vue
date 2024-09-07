@@ -40,13 +40,15 @@
         <div class="highlights-grid">
           <div v-for="highlight in highlights" :key="highlight.id" class="highlight-item hover-effect">
             <font-awesome-icon :icon="highlight.icon" size="2x" />
-            <h3>{{ highlight.title }}</h3>
-            <p>{{ highlight.description }}</p>
+            <div>
+              <h3>{{ highlight.title }}</h3>
+              <p>{{ highlight.description }}</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="experience-education"  ref="experienceSection">
+      <section class="experience-education" ref="experienceSection">
         <div class="experience">
           <h2>경력</h2>
           <ul>
@@ -81,8 +83,34 @@
           </div>
         </div>
       </section>
-    </main>
 
+      <section class="aspirations" ref="aspirationsSection">
+        <h2>개발자로서의 포부</h2>
+        <div class="aspiration-content">
+          <p>
+            저는 끊임없이 변화하는 기술 환경에서 지속적으로 학습하고 성장하는 개발자가 되고자 합니다.
+            단순히 코드를 작성하는 것을 넘어, 사용자의 니즈를 정확히 파악하고 이를 효율적으로 구현하는
+            문제 해결사가 되는 것이 목표입니다.
+          </p>
+          <p>
+            또한, 팀워크와 커뮤니케이션의 중요성을 인지하고 있습니다. 동료들과의 협업을 통해
+            서로의 지식을 공유하고, 함께 성장하는 개발 문화를 만들어가고 싶습니다.
+          </p>
+          <p>
+            기술적으로는 풀스택 개발 능력을 갖추어 프로젝트의 전반적인 흐름을 이해하고,
+            최적의 솔루션을 제시할 수 있는 개발자가 되고자 합니다. 특히, 클라우드 기술과
+            DevOps 방법론에 대한 깊이 있는 이해를 바탕으로, 확장 가능하고 안정적인 시스템을
+            구축하는 데 기여하고 싶습니다. 또한, Lighthouse와 PurgeCSS 같은 도구를 활용한
+            웹 성능 최적화에도 큰 관심을 가지고 있어, 사용자 경험을 지속적으로 개선하는 데
+            노력을 기울이고 있습니다.
+          </p>
+          <p>
+            궁극적으로는 사용자에게 가치 있는 서비스를 제공하고, 기술을 통해 사회에 긍정적인
+            영향을 미치는 개발자가 되는 것이 제 목표입니다.
+          </p>
+        </div>
+      </section>
+    </main>
   </div>
 </template>
 
@@ -93,7 +121,6 @@ import { faUsers, faGlobe, faGraduationCap, faRss, faPhone, faEnvelope, faFilePd
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-// FontAwesome 아이콘 라이브러리 설정
 library.add(faUsers, faGlobe, faGraduationCap, faGithub, faRss, faPhone, faEnvelope, faFilePdf, faProjectDiagram)
 
 const gitLink = 'https://github.com/dongkyukim1'
@@ -174,6 +201,21 @@ const skillCategories = ref([
       {name: 'Node.js'},
       {name: 'Tomcat'}
     ]
+  },
+  {
+    name: '테스트 & 문서화',
+    skills: [
+      {name: 'JUnit'},
+      {name: 'Swagger'},
+      {name: 'Postman'}
+    ]
+  },
+  {
+    name: '성능 최적화',
+    skills: [
+      {name: 'Lighthouse'},
+      {name: 'PurgeCSS'},
+    ]
   }
 ])
 
@@ -183,6 +225,11 @@ const getSkillIcon = (skillName) => {
     'Vue.js': 'vue.js',
     'jQuery': 'jquery',
     'BootStrap': 'bootstrap',
+    'JUnit': 'junit',
+    'Postman': 'postman',
+    'Swagger': 'swagger',
+    'Lighthouse': 'lighthouse',
+    'PurgeCSS': 'purgecss'
   };
   const formattedName = specialCases[skillName] || skillName.toLowerCase().replace(/\s+/g, '-');
   try {
@@ -192,58 +239,66 @@ const getSkillIcon = (skillName) => {
     return new URL('../components/icons/default.svg', import.meta.url).href;
   }
 }
-
-const projectsSection = ref(null)
-
-const scrollToProjects = () => {
-  projectsSection.value.$el.scrollIntoView({ behavior: 'smooth' })
-}
 </script>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 
+* {
+  box-sizing: border-box;
+}
+
+/* 기본 스타일 설정 */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* 전역적으로 가로 스크롤 방지 */
+}
+
 .profile-container {
   width: 100%;
-  max-width: 900px; /* 최대 너비를 줄여 여유 공간 확보 */
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   font-family: 'Jua', sans-serif;
   background-color: #f8f9fa;
   color: #333;
-  overflow-y: auto;
-  height: auto;
+
 }
 
 .profile-header {
   display: flex;
-  align-items: flex-start; /* 상단 정렬로 변경 */
-  margin-bottom: 3rem; /* 여백 증가 */
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3rem;
   background-color: #ffffff;
   border-radius: 10px;
   padding: 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .profile-image-container {
   flex-shrink: 0;
-  margin-right: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .profile-image {
-  width: 180px; /* 이미지 크기 약간 감소 */
-  height: 180px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid #40adfb;
+  left: 2em;
 }
 
 .profile-info {
-  flex-grow: 1;
+  position: relative; /* 상대적 위치 조정 가능하도록 설정 */
+  left: -9em; /* 왼쪽으로 20px 이동 */
 }
 
 .profile-info h1 {
-  font-size: 2.3rem; /* 폰트 크기 약간 감소 */
+  font-size: 1.8rem;
   margin-bottom: 0.5rem;
   color: #2c3e50;
 }
@@ -256,12 +311,13 @@ const scrollToProjects = () => {
 }
 
 .tagline {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #40adfb;
   margin-bottom: 0.5rem;
 }
 
 .hashtags {
+  font-size: 0.9rem;
   color: #6c757d;
   margin-bottom: 1rem;
 }
@@ -270,6 +326,7 @@ const scrollToProjects = () => {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  justify-content: center;
   margin-bottom: 1rem;
 }
 
@@ -279,8 +336,8 @@ const scrollToProjects = () => {
   color: #ffffff;
   text-decoration: none;
   transition: all 0.3s ease;
-  font-size: 0.9rem; /* 폰트 크기 약간 감소 */
-  padding: 0.4rem 0.8rem; /* 패딩 약간 감소 */
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
   border-radius: 20px;
   background-color: #40adfb;
 }
@@ -299,6 +356,7 @@ const scrollToProjects = () => {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  justify-content: center;
   margin-top: 1rem;
 }
 
@@ -308,27 +366,23 @@ const scrollToProjects = () => {
   color: #2c3e4f;
   text-decoration: none;
   transition: all 0.3s ease;
-  font-size: 0.9rem; /* 폰트 크기 약간 감소 */
+  font-size: 0.9rem;
 }
 
 .contact-link:hover {
   color: #40adfb;
 }
 
-.contact-link{
-  margin-right: 0.5rem;
-}
-
 .profile-content {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 3rem; /* 섹션 간 간격 증가 */
+  gap: 3rem;
 }
 
 h2 {
-  font-size: 1.6rem; /* 폰트 크기 약간 감소 */
+  font-size: 1.6rem;
   color: #2c3e50;
-  margin-bottom: 1.5rem; /* 여백 증가 */
+  margin-bottom: 1.5rem;
   border-bottom: 2px solid #40adfb;
   padding-bottom: 0.5rem;
 }
@@ -345,62 +399,53 @@ ul {
 }
 
 li {
-  margin-bottom: 0.8rem; /* 여백 증가 */
+  margin-bottom: 0.8rem;
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
 
 .highlight-item {
-  background-color: #f8f9fa;
-  padding: 1.2rem; /* 패딩 증가 */
+  background-color: #ffffff;
+  padding: 1.2rem;
   border-radius: 8px;
-  color: #40adfb;
-  text-align: left;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   gap: 1rem;
-  border: 1px solid #d1d1d1;
-  margin-bottom: 1rem;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.highlight-item:hover {
-  background-color: #e0f7fa;
-  transform: translateY(-5px);
 }
 
 .highlight-item h3 {
   margin: 0 0 0.5rem 0;
-  font-size: 1.3rem; /* 폰트 크기 약간 감소 */
-  color: #000000;
+  font-size: 1.3rem;
+  color: #2c3e50;
 }
 
 .highlight-item p {
   margin: 0;
   color: #6c757d;
-  font-size: 0.9rem; /* 폰트 크기 약간 감소 */
-}
-
-.highlights-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 반응형 그리드로 변경 */
-  gap: 1.5rem;
+  font-size: 0.9rem;
 }
 
 .experience-education {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
 
 .skill-categories {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 그리드 열 너비 조정 */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
 }
 
 .skill-items {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.75rem;
 }
 
@@ -410,13 +455,13 @@ li {
   background-color: #ffffff;
   padding: 0.5rem;
   border-radius: 4px;
-  font-size: 0.85rem; /* 폰트 크기 약간 감소 */
+  font-size: 0.85rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .skill-item img {
-  width: 18px; /* 아이콘 크기 약간 감소 */
-  height: 18px;
+  width: 24px;
+  height: 24px;
   margin-right: 0.5rem;
 }
 
@@ -427,7 +472,37 @@ li {
 .hover-effect:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #f1f8ff;
+}
+
+.aspirations {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.aspiration-content p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* 큰 화면에서는 가로 정렬, 작은 화면에서는 세로 정렬 */
+@media (min-width: 768px) {
+  .profile-header {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .profile-image-container {
+    margin-right: 2rem;
+    margin-bottom: 0;
+  }
+
+  .profile-info {
+    text-align: left;
+  }
 }
 
 @media (max-width: 768px) {
@@ -451,10 +526,6 @@ li {
     height: 150px;
   }
 
-  .profile-info {
-    text-align: center;
-  }
-
   .profile-info h1 {
     font-size: 2rem;
   }
@@ -463,57 +534,25 @@ li {
     font-size: 1.2rem;
   }
 
-  .tagline {
-    font-size: 1rem;
-  }
-
-  .hashtags {
-    font-size: 0.9rem;
-  }
-
-  .profile-links {
+  .profile-links, .contact-info {
     justify-content: center;
-  }
-
-  .profile-link {
-    margin: 0.25rem;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
-  }
-
-  .link-text {
-    display: none;
-  }
-
-  .profile-link-icon {
-    margin-right: 0;
-  }
-
-  .contact-info {
-    justify-content: center;
-  }
-
-  .contact-link {
-    font-size: 0.9rem;
   }
 
   .highlights-grid,
   .experience-education,
   .skill-categories {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
   }
 
-  .highlight-item {
-    text-align: center;
-    justify-content: center;
+  .skill-categories {
+    grid-template-columns: 1fr;
   }
 
   .skill-items {
     justify-content: center;
   }
 
-  .skill-item {
+  .highlight-item, .skill-item {
     justify-content: center;
   }
 }

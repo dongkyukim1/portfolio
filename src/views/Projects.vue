@@ -3,8 +3,13 @@
   <div class="projects full-height" id="projects">
     <h2>프로젝트 목록</h2>
     <div class="project-grid">
-      <div v-for="project in projects" :key="project.id" class="project-item" @click="openLink(project.link)">
-        <img :src="project.image" :alt="project.name" />
+      <div v-for="project in projects" :key="project.id" class="project-item" @click="handleProjectClick(project)">
+        <img v-if="project.id !== 6" :src="project.image" :alt="project.name" />
+        <div v-else class="lighthouse-container">
+          <font-awesome-icon :icon="project.icon" class="lighthouse-icon" />
+          <p>성능 점수 향상</p>
+          <p class="score-improvement">87 → 100</p>
+        </div>
         <div v-if="project.id === 2" class="project-highlight">
           <font-awesome-icon icon="star" class="star-icon" />
           <span>최신 & 대표 프로젝트</span>
@@ -14,6 +19,10 @@
           <p>{{ project.description }}</p>
         </div>
       </div>
+    </div>
+
+    <div class="project-details-slider">
+      <ProjectDetailsSlider />
     </div>
 
     <div class="project-highlights">
@@ -67,6 +76,8 @@
         </div>
       </div>
     </div>
+
+    <LighthouseModal :isOpen="isModalOpen" @close="closeModal" />
   </div>
 </template>
 
@@ -74,9 +85,13 @@
 import { ref } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUsers, faCode, faServer, faDatabase, faStar, faCodeBranch, faShip, faCoffee, faRobot } from '@fortawesome/free-solid-svg-icons'
+import { faUsers, faCode, faServer, faDatabase, faStar, faCodeBranch, faShip, faCoffee, faRobot, faTachometerAlt } from '@fortawesome/free-solid-svg-icons'
+import ProjectDetailsSlider from '@/components/ProjectDetailsSlider.vue'
+import LighthouseModal from '@/components/LighthouseModal.vue'
 
-library.add(faUsers, faCode, faServer, faDatabase, faStar, faCodeBranch, faShip, faCoffee, faRobot)
+library.add(faUsers, faCode, faServer, faDatabase, faStar, faCodeBranch, faShip, faCoffee, faRobot, faTachometerAlt)
+
+const isModalOpen = ref(false);
 
 const projects = ref([
   {
@@ -123,6 +138,15 @@ const projects = ref([
     link: "https://github.com/dongkyukim1/RPA_Automation",
     keyAchievement: "자동화 기능 구현 및 SQLite DB 활용 (솔로 프로젝트)",
     icon: "robot"
+  },
+  {
+    id: 6,
+    name: "웹 성능 최적화",
+    description: "Lighthouse를 활용한 웹 성능 개선",
+    image: new URL('../assets/lighthouse.png', import.meta.url).href,
+    link: "#",
+    keyAchievement: "Lighthouse 성능 점수 87점에서 100점으로 향상",
+    icon: "tachometer-alt"
   }
 ])
 
@@ -133,8 +157,16 @@ const highlights = ref([
   { id: 4, icon: 'database', title: 'DB 관리', description: '게시판 DB 설계 및 구현' }
 ])
 
-const openLink = (url) => {
-  window.open(url, '_blank');
+const handleProjectClick = (project) => {
+  if (project.id === 6) {
+    isModalOpen.value = true;
+  } else {
+    window.open(project.link, '_blank');
+  }
+}
+
+const closeModal = () => {
+  isModalOpen.value = false;
 }
 </script>
 
@@ -223,6 +255,27 @@ const openLink = (url) => {
   color: #FFD700;
 }
 
+.lighthouse-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #f0f8ff;
+}
+
+.lighthouse-icon {
+  font-size: 3rem;
+  color: #3498db;
+  margin-bottom: 1rem;
+}
+
+.score-improvement {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #27ae60;
+}
+
 .highlights-grid, .details-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -304,6 +357,10 @@ p {
   margin-bottom: 0.5rem;
   color: #34495e;
   line-height: 1.4;
+}
+
+.project-details-slider {
+  margin: 2rem 0;
 }
 
 @media (max-width: 768px) {
